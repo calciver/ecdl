@@ -1,0 +1,56 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.122.1/containers/python-3
+{
+	"name": "Elbow Classification Docker",
+	// "image": "tensorflow/tensorflow:latest-gpu",
+	// "runArgs": ["--gpus","all"],
+
+	"build": {
+		"dockerfile": "Dockerfile",
+		// "image": "tensorflow/tensorflow:latest-gpu",
+		"context": "..",
+		// Update 'VARIANT' to pick a Python version. Rebuild the container 
+		// if it already exists to update. Available variants: 3, 3.6, 3.7, 3.8 
+		"args": { "VARIANT": "3"},
+		// "runArgs": ["--gpus all"],
+	},
+	"runArgs": ["--gpus","all"],
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"python.pythonPath": "/usr/local/bin/python",
+		// "python.linting.enabled": true,
+		// "python.linting.pylintEnabled": true,
+		// "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+		// "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+		// "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
+		// "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
+		// "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+		// "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
+		// "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
+		// "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
+		// "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
+	},
+
+	// "mounts": [
+	// 	"source=/dev/shm,target=/dev/shm,type=bind,consistency=cached"
+	// ],
+
+	// Add the IDs of extensions you want installed when the container is created.
+	// "extensions": [
+	// 	"ms-python.python",
+	// 	"ms-vsliveshare.vsliveshare-pack"
+	// ]
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "pip3 install --user -r requirements.txt",
+	// "postCreateCommand": "pip3 install -r TF2_Brain_Segmentation/requirements.txt",
+	// "postCreateCommand": "pip3 install -r TF2_Brain_Segmentation/requirements.txt",
+
+	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode"
+}
