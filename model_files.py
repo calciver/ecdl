@@ -9,7 +9,7 @@ import tensorflow as tf
 def create_efficientnet_model(relu_units = 120,learning_rate=0.0001):
     efficient_net = EfficientNetB0(
         weights='imagenet',
-        #input_shape=(32,32,3),
+        input_shape=(256, 256, 3),
         include_top=False,
         pooling='max'
     )
@@ -23,6 +23,92 @@ def create_efficientnet_model(relu_units = 120,learning_rate=0.0001):
     model.compile(optimizer=Adam(lr=learning_rate), loss='binary_crossentropy', metrics=['accuracy'])
 
     return model
+
+def tf_enet_model(output_classes = 2, learning_rate=0.0001, image_dims=224):
+    # model_builder = tf.keras.applications.efficientnet.EfficientNetB0    
+    # efficientnet_model_base = model_builder(weights="imagenet",include_top=True, pooling='max')
+
+    if image_dims == 224:
+        efficientnet_model_base = EfficientNetB0(
+            weights='imagenet',
+            input_shape=(image_dims, image_dims, 3),
+            include_top=True,
+            pooling='max'
+        )
+    else:
+        efficientnet_model_base = EfficientNetB0(
+            weights='imagenet',
+            input_shape=(image_dims, image_dims, 3),
+            include_top=False,
+            pooling='max'
+        )
+    efficientnet_model_base.summary()
+    # inp = tf.keras.Input([224, 224, 3])
+    # enet_out = efficientnet_model_base(inp)
+    # output = Dense(units=output_classes, activation='sigmoid')(enet_out)
+
+    # return tf.keras.models.Model(inp, output)    
+
+    # model = tf.keras.Sequential()
+    # model.add(efficientnet_model_base)
+    # model.add(tf.keras.layers.Dense(units = output_classes, activation='sigmoid'))
+
+    model = Sequential()
+    model.add(efficientnet_model_base)
+    model.add(Dense(units = 120, activation='relu', name='first_layer'))
+    model.add(Dense(units = 120, activation = 'relu', name='second_layer'))
+    model.add(Dense(units = output_classes, activation='sigmoid', name='classification_layer'))
+
+    model.compile(optimizer=Adam(lr=learning_rate), loss='categorical_crossentropy', metrics=['accuracy'])
+
+    return model
+
+def b3_enet_model(output_classes = 2, learning_rate=0.0001, image_dims=300):
+    # model_builder = tf.keras.applications.efficientnet.EfficientNetB3    
+    # efficientnet_model_base = model_builder(
+    #     weights="imagenet",
+    #     include_top=False,
+    #     pooling='max',
+    #     input_shape=(image_dims, image_dims ,3))
+    # efficientnet_model_base.summary()
+
+    from efficientnet.tfkeras import EfficientNetB3
+    efficientnet_model_base = EfficientNetB3(
+        weights='imagenet',
+        input_shape=(image_dims, image_dims, 3),
+        include_top=False,
+        pooling='max'
+    )
+
+    efficientnet_model_base.summary()    
+
+    model = Sequential()
+    model.add(efficientnet_model_base)
+    model.add(Dense(units = 120, activation='relu', name='first_layer'))
+    model.add(Dense(units = 120, activation = 'relu', name='second_layer'))
+    model.add(Dense(units = output_classes, activation='sigmoid', name='classification_layer'))
+
+    model.compile(optimizer=Adam(lr=learning_rate), loss='categorical_crossentropy', metrics=['accuracy'])
+
+    return model
+
+def hmap_enet_model(relu_units = 120, learning_rate=0.0001, image_dims=300):
+    efficient_net = EfficientNetB0(
+        weights='imagenet',
+        input_shape=(256, 256, 3),
+        include_top=False,
+        pooling='max'
+    )
+
+    inp = tf.keras.Input([256, 256, 3])
+
+    enet_out = efficient_net(inp)
+    dense_output1 = Dense(units=relu_units, activation='relu')(enet_out)
+    dense_output2 = Dense(units=relu_units, activation='relu')(dense_output1)
+    output = Dense(units=1, activation='sigmoid')(dense_output2)
+
+    return tf.keras.models.Model(inp, output)
+
 
 def create_keras_efficientnet_model(relu_units = 128,learning_rate=0.0001):
     model_builder = tf.keras.applications.efficientnet.EfficientNetB0

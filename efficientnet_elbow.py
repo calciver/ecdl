@@ -38,7 +38,10 @@ parser.add_argument('--zoom_range', default=0.0, type=float, help='Float or [low
 parser.add_argument('--horizontal_flip', default=False, type=bool, help='Boolean. Randomly flip inputs horizontally.')
 parser.add_argument('--vertical_flip', default=False, type=bool, help='Boolean. Randomly flip inputs vertically.')
 parser.add_argument('--validation_split', default=0.2, type=float, help='Float. Fraction of images reserved for validation (strictly between 0 and 1).')
-parser.add_argument('--model', default='keras_efficientnet',type=str,metavar='m',help='name of the experiment')    
+parser.add_argument('--model', default='keras_efficientnet',type=str,metavar='m',help='name of the experiment')
+parser.add_argument('--image_dims', default=256, type=int, help='Image Dimensions to be fed to the model')
+parser.add_argument('--class_mode', default='binary',type=str,metavar='m',help='binary/categorical/sparse/input')
+parser.add_argument('--batch_size', default=10, type=int, help='Reduced batch size allows greater dimensions')
 args = parser.parse_args()
 print(args)
 
@@ -70,22 +73,25 @@ with strategy.scope():
                                                                            zoom_range=args.zoom_range,
                                                                            horizontal_flip=args.horizontal_flip,
                                                                            vertical_flip=args.vertical_flip,
-                                                                           rescale=1./255, validation_split = args.validation_split)
+                                                                           rescale=1./255,
+                                                                           validation_split = args.validation_split)
 
 
 
-    train_data_gen = base_image_generator.flow_from_directory(batch_size=20,
+    train_data_gen = base_image_generator.flow_from_directory(batch_size=args.batch_size,
+                                                            target_size=(args.image_dims, args.image_dims),
                                                             directory=train_dir,
                                                             shuffle=True,
-                                                            class_mode='binary',
+                                                            class_mode=args.class_mode,
                                                             subset='training')
 
 
 
-    val_data_gen = base_image_generator.flow_from_directory(batch_size=10,
+    val_data_gen = base_image_generator.flow_from_directory(batch_size=args.batch_size,
+                                                            target_size=(args.image_dims, args.image_dims),
                                                             directory=train_dir,
                                                             shuffle=True,
-                                                            class_mode='binary',
+                                                            class_mode=args.class_mode,
                                                             subset='validation')
 
     if args.model == 'efficientnet':
@@ -95,6 +101,10 @@ with strategy.scope():
         model = model_files.create_keras_efficientnet_model(relu_units = 120,learning_rate=args.learning_rate)
     elif args.model == 'keras_xception':
         model = model_files.create_efficientnet_model(relu_units = 120,learning_rate=args.learning_rate)
+    elif args.model == 'categorical_efficientnet':
+        model = model_files.tf_enet_model(output_classes = 2, learning_rate=args.learning_rate, image_dims=args.image_dims)
+    elif args.model == 'b3':
+        model = model_files.b3_enet_model(output_classes=2, learning_rate=args.learning_rate, image_dims=args.image_dims)
     else:
         print('Model not specified')
     model.summary()
