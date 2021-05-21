@@ -12,7 +12,6 @@ import csv
 import io
 
 parser = argparse.ArgumentParser(description='Choosing the experiment model to load and test')
-# parser.add_argument('--exp_id', default='experiments/elbow_efficientnet_lr_1e-4_rot60_ws0.1_hs0.1_zr0.2_round1/weights.16-0.7626.hdf5',type=str,metavar='EXP_ID',help='name of the experiment')
 parser.add_argument('--exp_id', default='experiments/extended_training/weights.25-0.8174.hdf5',type=str,metavar='EXP_ID',help='name of the experiment')
 args = parser.parse_args()
 print(args)
@@ -31,30 +30,22 @@ if gpus:
         print(e)
 
 
-saved_result_path = args.exp_id
+model = model_files.tf_enet_model()
+model.load_weights(args.exp_id)
 
-# saved_result_path = 'experiments/elbow_efficientnet_lr_1e-4_rot60_ws0.05_hs0.05_zr0.05_hf_vf_round4/weights.173-0.8311.hdf5'
-
-# saved_result_path = 'experiments/elbow_efficientnet_lr_1e-4_hf_vf_round2/weights.21-0.8402.hdf5'
-
-model = model_files.create_efficientnet_model()
-model.load_weights(saved_result_path)
 model.summary()
 
-csv_file_name = os.path.join('internal_hdd_results',os.path.basename(os.path.dirname(saved_result_path)) + '.csv')
-print(csv_file_name)
-# csv_file_name = 'results.csv'
+
+csv_file_name = os.path.join('internal_hdd_results',os.path.basename(os.path.dirname(args.exp_id)) + '.csv')
 
 csv_file = io.open(csv_file_name, 'w')
-writer = csv.DictWriter(csv_file, fieldnames=['experiment','image','score'])
+writer = csv.DictWriter(csv_file, fieldnames=['experiment','image','abnormal_score', 'normal_score'])
 writer.writeheader()
 csv_file.flush()
 
-# Before new data
-# all_files = glob.glob(os.path.join('elbow/SABINE_114_size_test_set', '*.jpg'))
-
 # After new data was added
-all_files = glob.glob(os.path.join('elbow/Full_Processed_Dataset/Test_Set_Full/ActualTestSet','*/*.jpg'))
+# all_files = glob.glob(os.path.join('elbow_data/Clean_Data/ActualTestSet','*/*.jpg'))
+all_files = glob.glob(os.path.join('elbow_data/Clean_Data/SecondTestSet','*/*.png'))
 
 for image_path in all_files:
     sample_image_path = image_path
@@ -66,11 +57,13 @@ for image_path in all_files:
 
     normalised_image = tf.expand_dims(normalised_image,axis=0)
 
-    # print(model.predict(normalised_image))
-
-    prediction_result = model.predict(normalised_image)[0][0]
+    prediction_result = model.predict(normalised_image)
 
     csv_file = io.open(csv_file_name, 'a')
-    writer = csv.DictWriter(csv_file, fieldnames=['experiment','image','score'])
-    writer.writerow({'experiment': saved_result_path, 'image': sample_image_path,'score': prediction_result})
+    writer = csv.DictWriter(csv_file, fieldnames=['experiment','image','abnormal_score','normal_score'])
+    writer.writerow({'experiment': args.exp_id,
+                     'image': sample_image_path,
+                     'abnormal_score': prediction_result[0, 0],
+                     'normal_score': prediction_result[0, 1],
+                     })
     csv_file.flush()
