@@ -6,6 +6,22 @@ from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 
 
+def tensorflow_efficientnet(model_name='b0',                            
+                            **kwargs):
+    if model_name == 'b0':
+        model_builder = tf.keras.applications.efficientnet.EfficientNetB0
+    elif model_name == 'b1':
+        model_builder = tf.keras.applications.efficientnet.EfficientNetB1
+    elif model_name == 'b2':
+        model_builder = tf.keras.applications.efficientnet.EfficientNetB2
+    elif model_name == 'b3':
+        model_builder = tf.keras.applications.efficientnet.EfficientNetB3
+    elif model_name == 'b4':
+        model_builder = tf.keras.applications.efficientnet.EfficientNetB4
+
+    efficientnet = model_builder(**kwargs)    
+    return efficientnet
+
 def create_efficientnet_model(relu_units = 120,learning_rate=0.0001):
     efficient_net = EfficientNetB0(
         weights='imagenet',

@@ -13,6 +13,10 @@ FROM tensorflow/tensorflow:latest-gpu
 RUN apt-get update && apt-get install -y git
 
 RUN python3 -m pip install efficientnet
+RUN python3 -m pip install jupyter notebook
 RUN git clone https://github.com/calciver/EfficientNet_Transfer_Learning.git
 
 # CMD ["echo", "TF2 Brain Segmentation Docker Image"]
+
+ENV PATH="/workspaces/ecdl:${PATH}"
+ENV PYTHONPATH="/workspaces/ecdl:${PYTHONPATH}"

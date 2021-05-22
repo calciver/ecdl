@@ -1,14 +1,14 @@
 import tensorflow as tf
 import csv
 import os
-import utils
+import ecdl
 import glob
 import numpy as np
 
 class delete_excess_callback(tf.keras.callbacks.Callback):
   def __init__(self,exp_folder):
     super(delete_excess_callback,self).__init__()    
-    utils.dir_creator(exp_folder)
+    ecdl.utils.dir_creator(exp_folder)
     self.exp_folder = exp_folder
     self.best_metric = 0.0
 
