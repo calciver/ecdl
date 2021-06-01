@@ -35,3 +35,47 @@
 # python write_results_csv.py --exp_id experiments/base_effnet_lr_1e-4_rot60_ws0.05_hs0.05_zr0.05_hf_vf_val0.2_round1/weights.25-0.8425.hdf5
 # python write_results_csv.py --exp_id experiments/base_effnet_lr_1e-4_rot60_ws0.05_hs0.05_zr0.05_hf_vf_val0.2_round2/weights.21-0.8390.hdf5
 # python write_results_csv.py --exp_id experiments/base_effnet_lr_1e-4_rot60_ws0.05_hs0.05_zr0.05_hf_vf_val0.2_round3/weights.19-0.8493.hdf5
+
+
+# # B0 Experiments
+# python scripts/write_results_csv.py --exp_id efficientnetb0_round1 --test_data first
+# python scripts/write_results_csv.py --exp_id efficientnetb0_round1 --test_data second
+# python scripts/write_results_csv.py --exp_id efficientnetb0_round2 --test_data first
+# python scripts/write_results_csv.py --exp_id efficientnetb0_round2 --test_data second
+# python scripts/write_results_csv.py --exp_id efficientnetb0_round3 --test_data first
+# python scripts/write_results_csv.py --exp_id efficientnetb0_round3 --test_data second
+
+# # B1 Experiments
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round1 --test_data first
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round1 --test_data second
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round2 --test_data first
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round2 --test_data second
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round3 --test_data first
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round3 --test_data second
+
+# # B1 Experiments
+# python scripts/write_results_csv.py --exp_id efficientnetb2_round1 --test_data first
+# python scripts/write_results_csv.py --exp_id efficientnetb2_round1 --test_data second
+# python scripts/write_results_csv.py --exp_id efficientnetb2_round2 --test_data first
+# python scripts/write_results_csv.py --exp_id efficientnetb2_round2 --test_data second
+# python scripts/write_results_csv.py --exp_id efficientnetb2_round3 --test_data first
+# python scripts/write_results_csv.py --exp_id efficientnetb2_round3 --test_data second
+
+## Evaluate only
+# python scripts/write_results_csv.py --exp_id efficientnetb0_round1 --test_data eval_both --load_type weight
+# python scripts/write_results_csv.py --exp_id efficientnetb0_round2 --test_data eval_both --load_type weight
+# python scripts/write_results_csv.py --exp_id efficientnetb0_round3 --test_data eval_both --load_type weight
+
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round1 --test_data eval_both --load_type weight
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round2 --test_data eval_both --load_type weight
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round3 --test_data eval_both --load_type weight
+
+# python scripts/write_results_csv.py --exp_id efficientnetb2_round1 --test_data eval_both --load_type weight
+# python scripts/write_results_csv.py --exp_id efficientnetb2_round2 --test_data eval_both --load_type weight
+# python scripts/write_results_csv.py --exp_id efficientnetb2_round3 --test_data eval_both --load_type weight
+
+# python scripts/write_results_csv.py --exp_id efficientnetb3_round5 --test_data eval_both --load_type weight
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round3 --test_data eval_both --load_type weight
+
+## Best model
+python scripts/write_results_csv.py --exp_id efficientnetb1_round3 --test_data both --load_type weight

@@ -79,7 +79,7 @@ def tf_enet_model(output_classes = 2, learning_rate=0.0001, image_dims=224):
 
     return model
 
-def b3_enet_model(output_classes = 2, learning_rate=0.0001, image_dims=300):
+def b3_enet_model_reference(output_classes = 2, learning_rate=0.0001, image_dims=300):
     # model_builder = tf.keras.applications.efficientnet.EfficientNetB3    
     # efficientnet_model_base = model_builder(
     #     weights="imagenet",
@@ -89,22 +89,25 @@ def b3_enet_model(output_classes = 2, learning_rate=0.0001, image_dims=300):
     # efficientnet_model_base.summary()
 
     from efficientnet.tfkeras import EfficientNetB3
-    efficientnet_model_base = EfficientNetB3(
-        weights='imagenet',
-        input_shape=(image_dims, image_dims, 3),
-        include_top=False,
-        pooling='max'
-    )
 
-    efficientnet_model_base.summary()    
+    input_shape = [image_dims, image_dims, 3]
+    efficient_net = EfficientNetB3(
+            weights='imagenet',
+            input_shape=input_shape,
+            include_top=False,
+    #         pooling='max'
+        )
 
-    model = Sequential()
-    model.add(efficientnet_model_base)
-    model.add(Dense(units = 120, activation='relu', name='first_layer'))
-    model.add(Dense(units = 120, activation = 'relu', name='second_layer'))
-    model.add(Dense(units = output_classes, activation='sigmoid', name='classification_layer'))
+    # Rebuild top
+    x = tf.keras.layers.GlobalAveragePooling2D(name="avg_pool")(efficient_net.output)    
+    top_dropout_rate = 0.2
+    x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
+    outputs = tf.keras.layers.Dense(2, activation="softmax", name="pred")(x)
 
-    model.compile(optimizer=Adam(lr=learning_rate), loss='categorical_crossentropy', metrics=['accuracy'])
+    model = tf.keras.Model(efficient_net.input, outputs, name="EfficientNet")
+
+    # model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    # model.summary()
 
     return model
 
@@ -194,6 +197,103 @@ def create_keras_xception_model(dense_units = 1000,learning_rate=0.0001):
     model.compile(optimizer=Adam(lr=learning_rate), loss='binary_crossentropy', metrics=['accuracy'])
     return model,xception_model_base
 
+
+def b0_enet_model(output_classes=2,
+                  image_dims=224,
+                  drop=0.2):
+
+    from efficientnet.tfkeras import EfficientNetB0
+
+    input_shape = [image_dims, image_dims, 3]
+    efficient_net = EfficientNetB0(
+            weights='imagenet',
+            input_shape=input_shape,
+            include_top=False,
+    #         pooling='max'
+        )
+
+    # Rebuild top
+    x = tf.keras.layers.GlobalAveragePooling2D(name="avg_pool")(efficient_net.output)    
+    top_dropout_rate = drop
+    x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
+    outputs = tf.keras.layers.Dense(2, activation="softmax", name="pred")(x)
+
+    model = tf.keras.Model(efficient_net.input, outputs, name="EfficientNet")
+
+    return model
+
+def b1_enet_model(output_classes=2,
+                  image_dims=240,
+                  drop=0.2):
+
+    from efficientnet.tfkeras import EfficientNetB1
+
+    input_shape = [image_dims, image_dims, 3]
+    efficient_net = EfficientNetB1(
+            weights='imagenet',
+            input_shape=input_shape,
+            include_top=False,
+    #         pooling='max'
+        )
+
+    # Rebuild top
+    x = tf.keras.layers.GlobalAveragePooling2D(name="avg_pool")(efficient_net.output)    
+    top_dropout_rate = drop
+    x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
+    outputs = tf.keras.layers.Dense(2, activation="softmax", name="pred")(x)
+
+    model = tf.keras.Model(efficient_net.input, outputs, name="EfficientNet")
+
+    return model     
+
+def b2_enet_model(output_classes=2,
+                  image_dims=260,
+                  drop=0.2):
+
+    from efficientnet.tfkeras import EfficientNetB2
+
+    input_shape = [image_dims, image_dims, 3]
+    efficient_net = EfficientNetB2(
+            weights='imagenet',
+            input_shape=input_shape,
+            include_top=False,
+    #         pooling='max'
+        )
+
+    # Rebuild top
+    x = tf.keras.layers.GlobalAveragePooling2D(name="avg_pool")(efficient_net.output)    
+    top_dropout_rate = drop
+    x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
+    outputs = tf.keras.layers.Dense(2, activation="softmax", name="pred")(x)
+
+    model = tf.keras.Model(efficient_net.input, outputs, name="EfficientNet")
+
+    return model
+
+def b3_enet_model(output_classes=2,
+                  image_dims=224,
+                  drop=0.2):
+
+    from efficientnet.tfkeras import EfficientNetB3
+
+    input_shape = [image_dims, image_dims, 3]
+    efficient_net = EfficientNetB3(
+            weights='imagenet',
+            input_shape=input_shape,
+            include_top=False,
+    #         pooling='max'
+        )
+
+    # Rebuild top
+    x = tf.keras.layers.GlobalAveragePooling2D(name="avg_pool")(efficient_net.output)    
+    top_dropout_rate = drop
+    x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
+    outputs = tf.keras.layers.Dense(2, activation="softmax", name="pred")(x)
+
+    model = tf.keras.Model(efficient_net.input, outputs, name="EfficientNet")
+
+    return model               
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description='Model Choice')
@@ -220,4 +320,4 @@ if __name__ == "__main__":
     elif args.model == 'constructed_xception':
         model,base_model = create_keras_xception_model()
         model.summary()        
-        base_model.summary()
+        base_model.summary()    
