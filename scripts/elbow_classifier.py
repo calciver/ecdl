@@ -55,7 +55,8 @@ strategy = tf.distribute.MirroredStrategy()
 
 with strategy.scope():        
     # # Larger Dataset
-    train_dir = os.path.join(base_path, 'elbow_data/SABINE_Training_Set')
+    # train_dir = os.path.join(base_path, 'elbow_data/SABINE_Training_Set')
+    train_dir = os.path.join(base_path, 'elbow_data/Large_Training_Set')
 
     train_image_generator = tf.keras.preprocessing.image.ImageDataGenerator(rotation_range=args.rotation_range,
                                                                             width_shift_range=args.width_shift_range,

@@ -13,6 +13,7 @@ FROM tensorflow/tensorflow:latest-gpu
 RUN apt-get update && apt-get install -y git
 
 RUN python3 -m pip install efficientnet
+RUN python3 -m pip install scikit-learn
 RUN python3 -m pip install jupyter notebook
 # RUN git clone https://github.com/calciver/ecdl.git
 

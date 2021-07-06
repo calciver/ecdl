@@ -78,4 +78,20 @@
 # python scripts/write_results_csv.py --exp_id efficientnetb1_round3 --test_data eval_both --load_type weight
 
 ## Best model
-python scripts/write_results_csv.py --exp_id efficientnetb1_round3 --test_data both --load_type weight
+# python scripts/write_results_csv.py --exp_id efficientnetb1_round3 --test_data eval_both --load_type weight
+
+## Model with more data
+# python scripts/write_results_csv.py --exp_id bigdata_efficientnetb1_round1 --test_data eval_both --load_type model
+
+## Evaluate all models with more data
+python scripts/write_results_csv.py --exp_id bigdata_efficientnetb0_round1 --test_data eval_both --load_type model
+python scripts/write_results_csv.py --exp_id bigdata_efficientnetb0_round2 --test_data eval_both --load_type model
+python scripts/write_results_csv.py --exp_id bigdata_efficientnetb0_round3 --test_data eval_both --load_type model
+
+python scripts/write_results_csv.py --exp_id bigdata_efficientnetb1_round1 --test_data eval_both --load_type model
+python scripts/write_results_csv.py --exp_id bigdata_efficientnetb1_round2 --test_data eval_both --load_type model
+python scripts/write_results_csv.py --exp_id bigdata_efficientnetb1_round3 --test_data eval_both --load_type model
+
+python scripts/write_results_csv.py --exp_id bigdata_efficientnetb2_round1 --test_data eval_both --load_type model
+python scripts/write_results_csv.py --exp_id bigdata_efficientnetb2_round2 --test_data eval_both --load_type model
+python scripts/write_results_csv.py --exp_id bigdata_efficientnetb2_round3 --test_data eval_both --load_type model

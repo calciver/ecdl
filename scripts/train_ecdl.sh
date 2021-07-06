@@ -164,8 +164,175 @@
 #     --class_mode categorical
 
 # ## Efficientnet B2 Experiments
+# python scripts/elbow_classifier.py \
+#     --exp_id efficientnetb2_round1 \
+#     --epochs 300 \
+#     --model efficientnetb2 \
+#     --model_type b2 \
+#     --image_dims 260 \
+#     --rotation_range 10 \
+#     --width_shift_range 0.05 \
+#     --height_shift_range 0.05 \
+#     --brightness_range 0.8 1.2 \
+#     --zoom_range 0.05 \
+#     --horizontal_flip True \
+#     --validation_split 0.1 \
+#     --batch_size 8 \
+#     --class_mode categorical
+
+# python scripts/elbow_classifier.py \
+#     --exp_id efficientnetb2_round2 \
+#     --epochs 300 \
+#     --model efficientnetb2 \
+#     --model_type b2 \
+#     --image_dims 260 \
+#     --rotation_range 10 \
+#     --width_shift_range 0.05 \
+#     --height_shift_range 0.05 \
+#     --brightness_range 0.8 1.2 \
+#     --zoom_range 0.05 \
+#     --horizontal_flip True \
+#     --validation_split 0.1 \
+#     --batch_size 8 \
+#     --class_mode categorical
+
+# python scripts/elbow_classifier.py \
+#     --exp_id efficientnetb2_round3 \
+#     --epochs 300 \
+#     --model efficientnetb2 \
+#     --model_type b2 \
+#     --image_dims 260 \
+#     --rotation_range 10 \
+#     --width_shift_range 0.05 \
+#     --height_shift_range 0.05 \
+#     --brightness_range 0.8 1.2 \
+#     --zoom_range 0.05 \
+#     --horizontal_flip True \
+#     --validation_split 0.1 \
+#     --batch_size 8 \
+#     --class_mode categorical        
+
+
+### With the larger training set
+# python scripts/elbow_classifier.py \
+#     --exp_id bigdata_efficientnetb1_round1 \
+#     --epochs 300 \
+#     --model efficientnetb1 \
+#     --model_type b1 \
+#     --image_dims 240 \
+#     --rotation_range 10 \
+#     --width_shift_range 0.05 \
+#     --height_shift_range 0.05 \
+#     --brightness_range 0.8 1.2 \
+#     --zoom_range 0.05 \
+#     --horizontal_flip True \
+#     --validation_split 0.1 \
+#     --batch_size 8 \
+#     --class_mode categorical
+
+
+## Rename all with bigdata prefix
 python scripts/elbow_classifier.py \
-    --exp_id efficientnetb2_round1 \
+    --exp_id bigdata_efficientnetb0_round1 \
+    --epochs 300 \
+    --model efficientnetb0 \
+    --model_type b1 \
+    --image_dims 224 \
+    --rotation_range 10 \
+    --width_shift_range 0.05 \
+    --height_shift_range 0.05 \
+    --brightness_range 0.8 1.2 \
+    --zoom_range 0.05 \
+    --horizontal_flip True \
+    --validation_split 0.1 \
+    --batch_size 8 \
+    --class_mode categorical
+
+python scripts/elbow_classifier.py \
+    --exp_id bigdata_efficientnetb0_round2 \
+    --epochs 300 \
+    --model efficientnetb0 \
+    --model_type b0 \
+    --image_dims 224 \
+    --rotation_range 10 \
+    --width_shift_range 0.05 \
+    --height_shift_range 0.05 \
+    --brightness_range 0.8 1.2 \
+    --zoom_range 0.05 \
+    --horizontal_flip True \
+    --validation_split 0.1 \
+    --batch_size 8 \
+    --class_mode categorical
+
+python scripts/elbow_classifier.py \
+    --exp_id bigdata_efficientnetb0_round3 \
+    --epochs 300 \
+    --model efficientnetb0 \
+    --model_type b0 \
+    --image_dims 224 \
+    --rotation_range 10 \
+    --width_shift_range 0.05 \
+    --height_shift_range 0.05 \
+    --brightness_range 0.8 1.2 \
+    --zoom_range 0.05 \
+    --horizontal_flip True \
+    --validation_split 0.1 \
+    --batch_size 8 \
+    --class_mode categorical
+
+
+## Efficientnet B1 Experiments
+python scripts/elbow_classifier.py \
+    --exp_id bigdata_efficientnetb1_round1 \
+    --epochs 300 \
+    --model efficientnetb1 \
+    --model_type b1 \
+    --image_dims 240 \
+    --rotation_range 10 \
+    --width_shift_range 0.05 \
+    --height_shift_range 0.05 \
+    --brightness_range 0.8 1.2 \
+    --zoom_range 0.05 \
+    --horizontal_flip True \
+    --validation_split 0.1 \
+    --batch_size 8 \
+    --class_mode categorical
+
+python scripts/elbow_classifier.py \
+    --exp_id bigdata_efficientnetb1_round2 \
+    --epochs 300 \
+    --model efficientnetb1 \
+    --model_type b1 \
+    --image_dims 240 \
+    --rotation_range 10 \
+    --width_shift_range 0.05 \
+    --height_shift_range 0.05 \
+    --brightness_range 0.8 1.2 \
+    --zoom_range 0.05 \
+    --horizontal_flip True \
+    --validation_split 0.1 \
+    --batch_size 8 \
+    --class_mode categorical
+
+python scripts/elbow_classifier.py \
+    --exp_id bigdata_efficientnetb1_round3 \
+    --epochs 300 \
+    --model efficientnetb1 \
+    --model_type b1 \
+    --image_dims 240 \
+    --rotation_range 10 \
+    --width_shift_range 0.05 \
+    --height_shift_range 0.05 \
+    --brightness_range 0.8 1.2 \
+    --zoom_range 0.05 \
+    --horizontal_flip True \
+    --validation_split 0.1 \
+    --batch_size 8 \
+    --class_mode categorical
+
+## Efficientnet B2 Experiments
+python scripts/elbow_classifier.py \
+    --exp_id bigdata_efficientnetb2_round1 \
     --epochs 300 \
     --model efficientnetb2 \
     --model_type b2 \
@@ -181,7 +348,7 @@ python scripts/elbow_classifier.py \
     --class_mode categorical
 
 python scripts/elbow_classifier.py \
-    --exp_id efficientnetb2_round2 \
+    --exp_id bigdata_efficientnetb2_round2 \
     --epochs 300 \
     --model efficientnetb2 \
     --model_type b2 \
@@ -197,7 +364,7 @@ python scripts/elbow_classifier.py \
     --class_mode categorical
 
 python scripts/elbow_classifier.py \
-    --exp_id efficientnetb2_round3 \
+    --exp_id bigdata_efficientnetb2_round3 \
     --epochs 300 \
     --model efficientnetb2 \
     --model_type b2 \
@@ -210,4 +377,4 @@ python scripts/elbow_classifier.py \
     --horizontal_flip True \
     --validation_split 0.1 \
     --batch_size 8 \
-    --class_mode categorical        
+    --class_mode categorical       
