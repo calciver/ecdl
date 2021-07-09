@@ -7,6 +7,7 @@
 # RUN git clone https://github.com/calciver/EfficientNet_Transfer_Learning.git
 # Get Tensorflow base image
 FROM tensorflow/tensorflow:latest-gpu
+# FROM tensorflow/tensorflow:2.4.2-gpu-jupyter
 
 # MAINTAINER russ chua 
 
